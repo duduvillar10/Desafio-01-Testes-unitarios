@@ -44,6 +44,19 @@ describe("Create Statement", () => {
     expect(statement).toHaveProperty("id");
   });
 
+  it("should not be able to create a deposit statement with nonexistent user", async () => {
+    const depositStatement = {
+      user_id: "13412341234124123412",
+      type: "deposit" as OperationType,
+      amount: 1000,
+      description: "test deposit",
+    };
+
+    expect(async () => {
+      await createStatementUseCase.execute(depositStatement);
+    }).rejects.toBeInstanceOf(AppError);
+  });
+
   it("should be able to create a withdraw statement", async () => {
     const { id } = await createUserUseCase.execute({
       name: "test",
