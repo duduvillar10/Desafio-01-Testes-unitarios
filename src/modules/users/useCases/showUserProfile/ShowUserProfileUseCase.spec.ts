@@ -1,10 +1,12 @@
 import { InMemoryUsersRepository } from "../../repositories/in-memory/InMemoryUsersRepository";
 import { IUsersRepository } from "../../repositories/IUsersRepository";
+import { CreateUserUseCase } from "../createUser/CreateUserUseCase";
 import { ShowUserProfileError } from "./ShowUserProfileError";
 import { ShowUserProfileUseCase } from "./ShowUserProfileUseCase";
 
 let showUserProfileUseCase: ShowUserProfileUseCase;
 let inMemoryUsersRepository: IUsersRepository;
+let createUserUseCase: CreateUserUseCase;
 
 describe("Show user", () => {
   beforeEach(() => {
@@ -12,10 +14,11 @@ describe("Show user", () => {
     showUserProfileUseCase = new ShowUserProfileUseCase(
       inMemoryUsersRepository
     );
+    createUserUseCase = new CreateUserUseCase(inMemoryUsersRepository);
   });
 
   it("should be able to show an user", async () => {
-    const user = await inMemoryUsersRepository.create({
+    const user = await createUserUseCase.execute({
       name: "test",
       email: "test@test.com",
       password: "1234",
