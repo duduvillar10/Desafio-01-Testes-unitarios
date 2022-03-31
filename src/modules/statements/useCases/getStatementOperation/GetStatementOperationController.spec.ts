@@ -4,7 +4,7 @@ import { app } from "../../../../app";
 
 let connection: Connection;
 
-describe("Get Balance", () => {
+describe("Get Statement Operation", () => {
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
@@ -21,7 +21,7 @@ describe("Get Balance", () => {
     await connection.close();
   });
 
-  it("should be able to get balance", async () => {
+  it("should be able to get a statement operation", async () => {
     const responseToken = await request(app).post("/api/v1/sessions").send({
       email: "test@test.com",
       password: "1234",
@@ -29,21 +29,16 @@ describe("Get Balance", () => {
 
     const { token } = responseToken.body;
 
-    await request(app)
+    const { body } = await request(app)
       .post("/api/v1/statements/deposit")
       .set({ Authorization: `Bearer ${token}` })
       .send({ amount: 100, description: "test deposit" });
 
-    await request(app)
-      .post("/api/v1/statements/withdraw")
-      .set({ Authorization: `Bearer ${token}` })
-      .send({ amount: 50, description: "test withdraw" });
-
     const response = await request(app)
-      .get("/api/v1/statements/balance")
+      .get(`/api/v1/statements/${body.id}`)
       .set({ Authorization: `Bearer ${token}` });
 
     expect(response.status).toBe(200);
-    expect(response.body.balance).toEqual(50);
+    expect(response.body).toHaveProperty("id", body.id);
   });
 });
