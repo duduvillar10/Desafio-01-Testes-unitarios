@@ -39,7 +39,6 @@ describe("Get Balance", () => {
       email: "test@test.com",
       password: "1234",
     });
-
     const depositStatement = {
       user_id: id,
       type: "deposit" as OperationType,

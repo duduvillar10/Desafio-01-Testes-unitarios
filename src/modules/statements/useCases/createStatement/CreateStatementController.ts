@@ -16,7 +16,7 @@ export class CreateStatementController {
     const { receiver_id } = request.params;
 
     const splittedPath = request.originalUrl.split("/");
-    const type = splittedPath[splittedPath.length - 1] as OperationType;
+    const type = splittedPath[4] as OperationType;
 
     const createStatement = container.resolve(CreateStatementUseCase);
 
