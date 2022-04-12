@@ -91,21 +91,12 @@ describe("Create Statement", () => {
       password: "1234",
     });
 
-    const depositStatement = {
-      user_id: id,
-      type: "deposit" as OperationType,
-      amount: 1000,
-      description: "test deposit",
-    };
-
     const withdrawStatement = {
       user_id: id,
       type: "withdraw" as OperationType,
       amount: 1100,
       description: "test withdraw",
     };
-
-    await createStatementUseCase.execute(depositStatement);
 
     expect(async () => {
       await createStatementUseCase.execute(withdrawStatement);
