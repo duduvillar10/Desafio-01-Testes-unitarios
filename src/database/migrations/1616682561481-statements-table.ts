@@ -16,7 +16,7 @@ export class accountsTable1616682561481 implements MigrationInterface {
             type: "uuid",
           },
           {
-            name: "sender_id",
+            name: "receiver_id",
             type: "uuid",
             isNullable: true,
           },
@@ -56,8 +56,8 @@ export class accountsTable1616682561481 implements MigrationInterface {
             onDelete: "CASCADE",
           },
           {
-            name: "sender_statements",
-            columnNames: ["sender_id"],
+            name: "receiver_statements",
+            columnNames: ["receiver_id"],
             referencedTableName: "users",
             referencedColumnNames: ["id"],
             onUpdate: "CASCADE",

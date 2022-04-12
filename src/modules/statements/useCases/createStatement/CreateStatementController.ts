@@ -13,7 +13,7 @@ export class CreateStatementController {
   async execute(request: Request, response: Response) {
     const { id: user_id } = request.user;
     const { amount, description } = request.body;
-    const { sender_id } = request.params;
+    const { receiver_id } = request.params;
 
     const splittedPath = request.originalUrl.split("/");
     const type = splittedPath[splittedPath.length - 1] as OperationType;
@@ -23,7 +23,7 @@ export class CreateStatementController {
     const statement = await createStatement.execute({
       user_id,
       type,
-      sender_id,
+      receiver_id,
       amount,
       description,
     });

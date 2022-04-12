@@ -17,7 +17,7 @@ export class CreateStatementUseCase {
 
   async execute({
     user_id,
-    sender_id,
+    receiver_id,
     type,
     amount,
     description,
@@ -28,10 +28,10 @@ export class CreateStatementUseCase {
       throw new CreateStatementError.UserNotFound();
     }
 
-    if (sender_id) {
-      const sender = this.usersRepository.findById(sender_id);
+    if (receiver_id) {
+      const receiver = this.usersRepository.findById(receiver_id);
 
-      if (!sender) {
+      if (!receiver) {
         throw new CreateStatementError.UserNotFound();
       }
     }
@@ -48,7 +48,7 @@ export class CreateStatementUseCase {
 
     const statementOperation = await this.statementsRepository.create({
       user_id,
-      sender_id,
+      receiver_id,
       type,
       amount,
       description,
