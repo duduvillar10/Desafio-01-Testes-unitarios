@@ -52,9 +52,9 @@ export class StatementsRepository implements IStatementsRepository {
 
     const balance = statement.reduce((acc, operation) => {
       if (operation.type === "deposit") {
-        return acc + operation.amount;
+        return Number(acc) + Number(operation.amount);
       } else {
-        return acc - operation.amount;
+        return Number(acc) - Number(operation.amount);
       }
     }, 0);
 
@@ -63,13 +63,13 @@ export class StatementsRepository implements IStatementsRepository {
     });
 
     const balanceWithTransfers = transferStatement.reduce(
-      (acc, operation) => acc + operation.amount,
+      (acc, operation) => Number(acc) + Number(operation.amount),
       balance
     );
 
     if (with_statement) {
       return {
-        statement,
+        statement: [...transferStatement, ...statement],
         balance: balanceWithTransfers,
       };
     }

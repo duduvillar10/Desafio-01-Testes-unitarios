@@ -39,12 +39,23 @@ describe("Get Balance", () => {
       email: "test@test.com",
       password: "1234",
     });
+
     const depositStatement = {
       user_id: id,
       type: "deposit" as OperationType,
       amount: 1000,
       description: "test deposit",
     };
+
+    const transferStatement = {
+      user_id: "adfasdfadf",
+      receiver_id: id,
+      type: "transfer" as OperationType,
+      amount: 1000,
+      description: "test transfer",
+    };
+
+    inMemoryStatementsRepository.create(transferStatement);
 
     await createStatementUseCase.execute(depositStatement);
 

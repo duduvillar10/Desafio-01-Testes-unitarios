@@ -32,6 +32,8 @@ export class Statement {
   @Column("uuid")
   receiver_id?: string;
 
+  sender_id?: string;
+
   @Column()
   description: string;
 
